@@ -21,8 +21,12 @@ def convert_rgb_xy(red, green, blue):
     Z = red * 0.000088 + green * 0.072310 + blue * 0.986039
 
 #Calculate the xy values from the XYZ values
-    x = X / (X + Y + Z)
-    y = Y / (X + Y + Z)
+    x_y_z_combined = X + Y + Z
+    if (x_y_z_combined == 0):
+        x_y_z_combined = 0.001
+
+    x = X / x_y_z_combined
+    y = Y / x_y_z_combined
     return [x, y]
 
 def convert_xy(x, y, bri): #needed for milight hub that don't work with xy values
